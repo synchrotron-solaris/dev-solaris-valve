@@ -4,12 +4,13 @@ This module contains device class Valve and run method for it.
 
 # Imports
 from tango import DevState, AttrWriteType, DispLevel
-from facadedevice import proxy_attribute
+from facadedevice import proxy_attribute, state_attribute
 from valve import Valve
 
 
 class FastValve(Valve):
     """
+
     InrushA1 should be True if air-inrush is detected on first sensor or False
     in normal state.
     InrushA2 should be True if air-inrush is detected on second sensor or False
@@ -26,9 +27,11 @@ class FastValve(Valve):
         self.set_state(DevState.ON)
         self.set_status("Device is running.")
 
+    # proxy attributes
+
     InRush1A = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_Inrush1A",
         display_level=DispLevel.OPERATOR,
         description="Name of the PLC device attribute that represents PLC signal"
@@ -36,11 +39,32 @@ class FastValve(Valve):
 
     InRush2A = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_Inrush2A",
         display_level=DispLevel.OPERATOR,
         description="Name of the PLC device attribute that represents PLC signal"
                     " for air inrush alarm on the second valve sensor.")
+
+    # state attributes
+
+    @state_attribute(
+        bind=['ValveInterlock', 'ValveCutOff', 'ValveOpen', 'ValveClosed',
+              'UnexpectedState', 'InRush1A', 'InRush2A'])
+    def state_and_status_fast_valve(self, interlock, cutoff, opn, closed, unexp,
+                                    rush1, rush2):
+        """
+        :param rush1: InRush1A
+        :param rush2: InRush2A
+        """
+        # __doc__ = Valve.state_and_status.__doc__ + __doc__
+
+        state, status = self.state_and_status(interlock, cutoff, opn, closed,
+                                                unexp)
+        if rush1 or rush2:
+            return DevState.ALARM, "One or both of the valve sensors is in " \
+                                   "alarm state due to air inrush"
+        else:
+            return state, status
 
 # run server
 
