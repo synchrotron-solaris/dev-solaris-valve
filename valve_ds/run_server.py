@@ -1,5 +1,9 @@
 """
-Module to run device server
+This module can be used to launch a Tango Device Server with two Device
+Classes:
+
+* `Valve`
+* `FastValve`
 """
 
 # Imports
@@ -8,9 +12,8 @@ from fast_valve import FastValve
 from tango.server import run
 
 
-# run server
-
-run_server = run({"Valve": Valve, "FastValve": FastValve})
+def main(args=None, **kwargs):
+        return run({"Valve": Valve, "FastValve": FastValve}, args=args, **kwargs)
 
 if __name__ == "__main__":
-    run_server()
+    main()
