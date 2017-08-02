@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
-from valve.version import __version__, licence
-from valve import __doc__, __author__, __author_email__
+from valve_ds.version import __version__, licence
+from valve_ds import __doc__, __author__, __author_email__
 
 setup(
     name="tangods-valve",
@@ -18,7 +18,5 @@ setup(
     install_requires=["setuptools"],
     entry_points={
         "console_scripts": ["Valve = "
-                            "valve.valve_ds.valve.Valve:run",
-                            "FastValve = "
-                            "valve.fast_valve_ds.fast_valve.FastValve:run"]}
+                            "valve_ds.run_server:run"]}
 )

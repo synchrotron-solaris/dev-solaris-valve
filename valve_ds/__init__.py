@@ -12,10 +12,10 @@ facadedevice library.
 
 from setuptools import find_packages
 
-__all__ = ['valve', 'valve_ds', 'fast_valve_ds', 'version']
+__all__ = ['valve_ds', 'version', 'run_server', 'valve', 'fast_valve']
 __doc__ = ""
-__author__ = ""
-__author_email__ = ""
+__author__ = "Stanislaw Cabala"
+__author_email__ = "stanislaw.cabala@gmail.com"
 
 for package_name in find_packages():
     package_import = __import__(package_name)

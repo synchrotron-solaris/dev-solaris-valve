@@ -7,27 +7,19 @@ from tango import DevState, AttrWriteType, DispLevel
 from facadedevice import Facade, proxy_attribute, proxy_command
 
 
-class FastValve(Facade):
+class Valve(Facade):
     """
-    This class implements Tango device server for control of vacuum valves with
-    two air-inrush sensors.
+    This class implements Tango device server for control of basic vacuum valves.
     Each Tango device represents one vacuum valve, which can be in open or closed.
 
-    The Tango device works on a set of six PLC attributes of type DevShort, which
-    must be exposed by PLC device server.
+    The Tango device works on a set of four PLC attributes of type DevShort,
+    which must be exposed by PLC device server.
 
-    OpenS PLC attribute should be True when valve is open and False when it is
-    closed.
-    ClosedS PLC attribute should be True when valve is closed and False when it
-    is opened.
+    OpenS PLC attribute should be True when valve is open and False when it is closed
+    ClosedS PLC attribute should be True when valve is closed and False when it is opened
 
-    OpenC PLC attribute should cause valve to open if it is closed.
-    CloseC PLC attribute should cause valve to close if it is open.
-
-    InrushA1 should be True if air-inrush is detected on first sensor or False
-    in normal state.
-    InrushA2 should be True if air-inrush is detected on second sensor or False
-    in normal state.
+    OpenC PLC attribute should cause valve to open if it is closed
+    CloseC PLC attribute should cause valve to close if it is open
     """
 
     def safe_init_device(self):
@@ -35,7 +27,7 @@ class FastValve(Facade):
         This is a method to safely initialize the Valve device,
         overrode from Facade base class
         """
-        super(FastValve, self).safe_init_device()
+        super(Valve, self).safe_init_device()
         self.set_state(DevState.ON)
         self.set_status("Device is running.")
 
@@ -43,7 +35,7 @@ class FastValve(Facade):
 
     ValveOpen = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_OpenS",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve open "
@@ -51,7 +43,7 @@ class FastValve(Facade):
 
     ValveClosed = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_ClosedS",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve closed "
@@ -59,7 +51,7 @@ class FastValve(Facade):
 
     ValveInterlock = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_InterlockA",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in "
@@ -67,7 +59,7 @@ class FastValve(Facade):
 
     ValveCutOff = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_CutOffA",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in cut-off "
@@ -78,27 +70,11 @@ class FastValve(Facade):
 
     UnexpectedState = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_UnexpectedState",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in unexpected "
                     "state.")
-
-    InRush1A = proxy_attribute(
-        dtype=bool,
-        access=AttrWriteType.READ,
-        property_name="PLCAttrName_Inrush1A",
-        display_level=DispLevel.OPERATOR,
-        description="Name of the PLC device attribute that represents PLC signal"
-                    " for air inrush alarm on the first valve sensor.")
-
-    InRush2A = proxy_attribute(
-        dtype=bool,
-        access=AttrWriteType.READ,
-        property_name="PLCAttrName_Inrush2A",
-        display_level=DispLevel.OPERATOR,
-        description="Name of the PLC device attribute that represents PLC signal"
-                    " for air inrush alarm on the second valve sensor.")
 
     # proxy commands
 
@@ -128,7 +104,5 @@ class FastValve(Facade):
 
 # run server
 
-run = FastValve.run_server()
-
 if __name__ == '__main__':
-    run()
+    Valve.run_server()
