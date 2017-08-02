@@ -4,7 +4,7 @@ This module contains device class Valve and run method for it.
 
 # Imports
 from tango import DevState, AttrWriteType, DispLevel
-from facadedevice import Facade, proxy_attribute, proxy_command
+from facadedevice import Facade, proxy_attribute, proxy_command, state_attribute
 
 
 class Valve(Facade):
@@ -75,6 +75,34 @@ class Valve(Facade):
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in unexpected "
                     "state.")
+
+    # state attributes
+
+    @state_attribute(
+        bind=['ValveInterlock', 'ValveCutOff', 'ValveOpen', 'ValveClosed',
+              'UnexpectedState'])
+    def state_and_status(self, interlock, cutoff, opn, closed, unexp):
+        """
+        This method changes state of device, accordingly to device attributes.
+        :param interlock: ValveInterlock
+        :param cutoff: ValveCutOff
+        :param opn: ValveOpen
+        :param closed: ValveClosed
+        :param unexp: UnexpectedState
+        :return: appropriate device state and status
+        :rtype: DevState
+        """
+        if interlock:
+            return DevState.ALARM, "Valve is interlocked"
+        elif cutoff:
+            return DevState.CLOSE, "Valve has been cut off. It's closed now and " \
+                                   "remote control is not possible"
+        elif closed:
+            return DevState.CLOSE, "Valve is closed"
+        elif opn:
+            return DevState.OPEN, "Valve is open"
+        elif unexp:
+            return DevState.UNKNOWN, "Unexpected state"
 
     # proxy commands
 
