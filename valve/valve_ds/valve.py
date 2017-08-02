@@ -87,7 +87,7 @@ class Valve(Facade):
         """
          :rtype: bool
         """
-        subcommand(1)
+        subcommand(True)
         return True
 
     @proxy_command(
@@ -99,7 +99,7 @@ class Valve(Facade):
         """
         :rtype: bool
         """
-        subcommand(1)
+        subcommand(True)
         return True
 
 # run server

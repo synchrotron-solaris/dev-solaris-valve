@@ -111,7 +111,7 @@ class FastValve(Facade):
         """
          :rtype: bool
         """
-        subcommand(1)
+        subcommand(True)
         return True
 
     @proxy_command(
@@ -123,7 +123,7 @@ class FastValve(Facade):
         """
         :rtype: bool
         """
-        subcommand(1)
+        subcommand(True)
         return True
 
 # run server

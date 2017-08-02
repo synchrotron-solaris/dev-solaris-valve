@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
-from shutter_ds.version import __version__, licence
-from shutter_ds import __doc__, __author__, __author_email__
+from valve.version import __version__, licence
+from valve import __doc__, __author__, __author_email__
 
 setup(
     name="tangods-valve",
@@ -19,7 +19,6 @@ setup(
     entry_points={
         "console_scripts": ["Valve = "
                             "valve.valve_ds.valve.Valve:run",
-                            "Valve = "
-                            "valve.fast_valve_ds.fast_valve.FastValve:run"
-                            ]}
+                            "FastValve = "
+                            "valve.fast_valve_ds.fast_valve.FastValve:run"]}
 )
