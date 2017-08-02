@@ -35,7 +35,7 @@ class Valve(Facade):
 
     ValveOpen = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_OpenS",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve open "
@@ -43,7 +43,7 @@ class Valve(Facade):
 
     ValveClosed = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_ClosedS",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve closed "
@@ -51,7 +51,7 @@ class Valve(Facade):
 
     ValveInterlock = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_InterlockA",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in "
@@ -59,7 +59,7 @@ class Valve(Facade):
 
     ValveCutOff = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_CutOffA",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in cut-off "
@@ -70,7 +70,7 @@ class Valve(Facade):
 
     UnexpectedState = proxy_attribute(
         dtype=bool,
-        access=AttrWriteType.READ,
+        access=AttrWriteType.READ_WRITE,
         property_name="PLCAttrName_UnexpectedState",
         display_level=DispLevel.OPERATOR,
         description="Attribute that represents PLC signal for valve in unexpected "
@@ -103,6 +103,7 @@ class Valve(Facade):
             return DevState.OPEN, "Valve is open"
         elif unexp:
             return DevState.UNKNOWN, "Unexpected state"
+        return DevState.ON, "Device is running"
 
     # proxy commands
 
