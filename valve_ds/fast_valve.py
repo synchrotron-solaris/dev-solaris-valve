@@ -15,7 +15,7 @@ class FastValve(Valve):
     InrushA2 should be True if air-inrush is detected on second sensor or False
     in normal state.
     """
-    __doc__ += Valve.__doc__
+    __doc__ = Valve.__doc__ + __doc__
 
     def safe_init_device(self):
         """
