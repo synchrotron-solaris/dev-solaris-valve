@@ -95,14 +95,16 @@ class Valve(Facade):
         if interlock:
             return DevState.ALARM, "Valve is interlocked"
         elif cutoff:
-            return DevState.CLOSE, "Valve has been cut off. It's closed now and " \
+            return DevState.CLOSE, "Valve has been cut off. It's closed and " \
                                    "remote control is not possible"
         elif closed:
             return DevState.CLOSE, "Valve is closed"
         elif opn:
             return DevState.OPEN, "Valve is open"
         elif unexp:
-            return DevState.UNKNOWN, "Unexpected state"
+            return DevState.UNKNOWN, "PLC attributes could not be read or were " \
+                                     "inconsistent, therefore we do not know " \
+                                     "what state the device is in."
         return DevState.ON, "Device is running"
 
     # proxy commands
