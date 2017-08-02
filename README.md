@@ -40,6 +40,7 @@ Valve instance_name
 
 Remember that Device Server instance has to be registered in database previously. 
 You can register both `Valve` and `FastValve` devices on the same device server.
+They can run simultaneously.
 
 Requirements
 ------------
