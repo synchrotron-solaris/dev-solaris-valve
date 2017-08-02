@@ -32,16 +32,14 @@ pip install .
 
 How to run
 ----------
-After installation, there are two scripts: `Valve` and `FastValve`.
+After installation, there is only one device server: `Valve`.
 You can use it via:
 ```console
 Valve instance_name
 ```
-or
-```console
-FastValve instance_name
-```
-Remember that Device Server instance has to registered in database previously.
+
+Remember that Device Server instance has to be registered in database previously. 
+You can register both `Valve` and `FastValve` devices on the same device server.
 
 Requirements
 ------------
