@@ -10,7 +10,7 @@ from tango.server import run
 
 # run server
 
-run1 = run({"Valve": Valve, "FastValve": FastValve})
+run_server = run({"Valve": Valve, "FastValve": FastValve})
 
 if __name__ == "__main__":
-    run1()
+    run_server()
