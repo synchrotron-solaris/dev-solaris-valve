@@ -18,5 +18,5 @@ setup(
     install_requires=["setuptools"],
     entry_points={
         "console_scripts": ["Valve = "
-                            "valve_ds.run_server:run"]}
+                            "valve_ds.run_server:run1"]}
 )
