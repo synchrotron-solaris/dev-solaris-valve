@@ -93,7 +93,7 @@ class Valve(Facade):
 
         :return: appropriate device state and status
 
-        :rtype: DevState
+        :rtype: tuple(DevState, str)
         """
         if interlock:
             return DevState.ALARM, "Valve is interlocked"

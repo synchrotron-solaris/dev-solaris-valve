@@ -64,7 +64,7 @@ class FastValve(Valve):
 
         :return: appropriate device state and status
 
-        :rtype: DevState
+        :rtype: tuple(DevState, str)
         """
 
         state, status = self.state_and_status(interlock, cutoff, opn, closed,
