@@ -66,7 +66,6 @@ class FastValve(Valve):
 
         :rtype: DevState
         """
-        FastValve.state_and_status_fast_valve.__doc__ += Valve.state_and_status.__doc__
 
         state, status = self.state_and_status(interlock, cutoff, opn, closed,
                                                 unexp)
