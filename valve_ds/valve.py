@@ -12,14 +12,14 @@ class Valve(Facade):
     This class implements Tango device server for control of basic vacuum valves.
     Each Tango device represents one vacuum valve, which can be in open or closed.
 
-    The Tango device works on a set of four PLC attributes of type DevShort,
+    The Tango device works on a set of four PLC attributes of type bool,
     which must be exposed by PLC device server.
 
-    OpenS PLC attribute should be True when valve is open and False when it is closed
-    ClosedS PLC attribute should be True when valve is closed and False when it is opened
+    OpenS PLC attribute should be True when valve is open and False when it is closed.
+    ClosedS PLC attribute should be True when valve is closed and False when it is opened.
 
-    OpenC PLC attribute should cause valve to open if it is closed
-    CloseC PLC attribute should cause valve to close if it is open
+    OpenC PLC attribute should cause valve to open if it is closed.
+    CloseC PLC attribute should cause valve to close if it is open.
     """
 
     def safe_init_device(self):
@@ -84,12 +84,15 @@ class Valve(Facade):
     def state_and_status(self, interlock, cutoff, opn, closed, unexp):
         """
         This method changes state of device, accordingly to device attributes.
+
         :param interlock: ValveInterlock
         :param cutoff: ValveCutOff
         :param opn: ValveOpen
         :param closed: ValveClosed
         :param unexp: UnexpectedState
+
         :return: appropriate device state and status
+
         :rtype: DevState
         """
         if interlock:

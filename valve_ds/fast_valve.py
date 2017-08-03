@@ -50,13 +50,23 @@ class FastValve(Valve):
     @state_attribute(
         bind=['ValveInterlock', 'ValveCutOff', 'ValveOpen', 'ValveClosed',
               'UnexpectedState', 'InRush1A', 'InRush2A'])
-    def state_and_status_fast_valve(self, interlock, cutoff, opn, closed, unexp,
-                                    rush1, rush2):
+    def state_and_status_fast_valve(self, interlock, cutoff, opn, closed, unexp, rush1, rush2):
         """
+        This method changes state of device, accordingly to device attributes.
+
+        :param interlock: ValveInterlock
+        :param cutoff: ValveCutOff
+        :param opn: ValveOpen
+        :param closed: ValveClosed
+        :param unexp: UnexpectedState
         :param rush1: InRush1A
         :param rush2: InRush2A
+
+        :return: appropriate device state and status
+
+        :rtype: DevState
         """
-        # __doc__ = Valve.state_and_status.__doc__ + __doc__
+        FastValve.state_and_status_fast_valve.__doc__ += Valve.state_and_status.__doc__
 
         state, status = self.state_and_status(interlock, cutoff, opn, closed,
                                                 unexp)
